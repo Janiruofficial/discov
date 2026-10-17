@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Discov by FAYVI | Events, culture & experiences in Sri Lanka</title>
+  <meta name="description" content="Find your next experience with Discov by FAYVI. Explore concerts, theatre, nightlife, culture and upcoming events across Sri Lanka." />
+  <style>
+    :root{
+      --bg:#0c0820;
+      --bg-soft:#16112f;
+      --panel:#161230;
+      --panel-2:#1d1740;
+      --line:rgba(255,255,255,.10);
+      --line-strong:rgba(255,255,255,.16);
+      --text:#f8f6ff;
+      --muted:#c8c1e9;
+      --pink:#ff5fa7;
+      --pink-2:#ff7ecf;
+      --gold:#ffc76b;
+      --violet:#7e6bff;
+      --blue:#59c9ff;
+      --mint:#7cf4c7;
+      --shadow:0 24px 70px rgba(5,3,18,.45);
+      --radius:26px;
+      --max:1240px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 10% 15%, rgba(255,95,167,.18), transparent 25%),
+        radial-gradient(circle at 85% 14%, rgba(89,201,255,.14), transparent 22%),
+        radial-gradient(circle at 80% 62%, rgba(126,107,255,.18), transparent 25%),
+        linear-gradient(180deg, #120b2f 0%, #0c0820 32%, #090612 100%);
+      min-height:100vh;
+    }
+    a{color:inherit;text-decoration:none}
+    button,input,select{font:inherit}
+    .shell{width:min(var(--max), calc(100% - 32px)); margin:0 auto}
+    .topbar{
+      position:sticky; top:0; z-index:40;
+      backdrop-filter: blur(18px);
+      background:rgba(8,6,20,.62);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0}
+    .brand{display:flex;align-items:center;gap:14px;min-width:0}
+    .brand-logo{
+      width:56px;height:56px;border-radius:18px;flex:none;
+      display:grid;place-items:center;
+      background:linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 12px 28px rgba(0,0,0,.22);
+    }
+    .brand-logo svg{width:38px;height:38px;display:block}
+    .brand-copy{display:flex;flex-direction:column;gap:2px;min-width:0}
+    .brand-copy strong{font-size:1.2rem;letter-spacing:-.03em}
+    .brand-copy span{font-size:.78rem;color:#f8cce0;letter-spacing:.22em;text-transform:uppercase}
+    .brand-copy small{font-size:.84rem;color:var(--muted)}
+    .nav-links{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .nav-links a{
+      padding:11px 14px;border-radius:999px;color:#efeafd;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03)
+    }
+    .nav-links a:hover{background:rgba(255,255,255,.08)}
+    .nav-cta{
+      padding:12px 18px;border-radius:999px;font-weight:800;
+      background:linear-gradient(135deg, var(--pink), var(--violet));
+      box-shadow:0 14px 26px rgba(255,95,167,.28);
+      border:1px solid rgba(255,255,255,.10)
+    }
+
+    .hero{padding:44px 0 20px}
+    .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:stretch}
+    .hero-main,.hero-side,.section-card,.feature-card,.event-card,.city-card,.mini-panel,.roadmap-card,.footer-cta{
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      border-radius:var(--radius);
+    }
+    .hero-main{padding:30px; position:relative; overflow:hidden}
+    .hero-main::before{
+      content:""; position:absolute; inset:auto -80px -120px auto; width:340px;height:340px;border-radius:50%;
+      background:radial-gradient(circle, rgba(255,95,167,.22), transparent 65%); pointer-events:none;
+    }
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;
+      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#ffe3ef;
+      font-size:.84rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    }
+    .eyebrow-dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--pink));box-shadow:0 0 0 5px rgba(255,199,107,.12)}
+    h1{
+      margin:18px 0 12px;font-size:clamp(2.7rem, 7vw, 5.35rem);line-height:.96;letter-spacing:-.06em;
+      max-width:11ch;
+    }
+    .accent{background:linear-gradient(90deg, #ffd38e 0%, #ff86b9 55%, #8ccfff 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .hero-main p{margin:0 0 20px;color:var(--muted);font-size:1.06rem;line-height:1.75;max-width:58ch}
+    .search-panel{
+      padding:16px;background:rgba(8,8,26,.38);border:1px solid rgba(255,255,255,.08);
+      border-radius:22px;display:grid;grid-template-columns:1.55fr .9fr .9fr auto;gap:12px;align-items:center;
+    }
+    .search-panel input,.search-panel select{
+      width:100%;border:none;outline:none;padding:15px 16px;border-radius:16px;
+      background:rgba(255,255,255,.07); color:var(--text);border:1px solid rgba(255,255,255,.08)
+    }
+    .search-panel option{color:#111}
+    .search-panel button{
+      border:none;border-radius:16px;padding:15px 18px;font-weight:900;cursor:pointer;color:white;
+      background:linear-gradient(135deg, var(--pink), #ff8f6b 70%, var(--gold));
+      box-shadow:0 16px 34px rgba(255,95,167,.25)
+    }
+    .quick-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+    .quick-tags button{
+      border:none;cursor:pointer;padding:10px 14px;border-radius:999px;
+      background:rgba(255,255,255,.06); color:#f7f1ff; border:1px solid rgba(255,255,255,.08)
+    }
+    .quick-tags button.active,.quick-tags button:hover{background:linear-gradient(135deg, rgba(255,95,167,.25), rgba(126,107,255,.22)); border-color:rgba(255,255,255,.16)}
+    .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+    .hero-stats div{padding:15px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07)}
+    .hero-stats strong{display:block;font-size:1.55rem;letter-spacing:-.05em}
+    .hero-stats span{display:block;margin-top:6px;font-size:.84rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+
+    .hero-side{padding:18px;display:flex;flex-direction:column;gap:16px}
+    .badge-stack{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .logo-panel,.vibe-panel{min-height:178px;padding:18px;border-radius:22px;border:1px solid rgba(255,255,255,.08);position:relative;overflow:hidden}
+    .logo-panel{display:grid;place-items:center;background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03))}
+    .logo-mark{display:grid;justify-items:center;gap:10px}
+    .logo-mark .ticket{width:96px;height:96px;border-radius:28px;background:linear-gradient(160deg, rgba(255,255,255,.18), rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.12);display:grid;place-items:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.16)}
+    .logo-mark svg{width:52px;height:52px}
+    .logo-mark b{font-size:1.45rem;letter-spacing:.18em}
+    .logo-mark small{color:#dccff3;text-transform:uppercase;letter-spacing:.22em;font-size:.72rem}
+    .vibe-panel{background:linear-gradient(135deg, rgba(126,107,255,.26), rgba(89,201,255,.15));}
+    .vibe-panel h3{margin:0 0 12px;font-size:1rem}
+    .vibe-bubbles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+    .vibe-bubbles span{display:flex;align-items:center;justify-content:center;min-height:62px;padding:10px;border-radius:18px;font-weight:700;text-align:center;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.12)}
+    .mini-panel{padding:18px}
+    .mini-panel h3{margin:0 0 10px;font-size:1rem}
+    .mini-panel p{margin:0;color:var(--muted);line-height:1.7}
+    .mini-panel .cta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+    .ghost-btn,.solid-btn,.small-btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      border-radius:999px;padding:12px 16px;font-weight:800;border:1px solid rgba(255,255,255,.12)
+    }
+    .ghost-btn{background:rgba(255,255,255,.05)}
+    .solid-btn{background:linear-gradient(135deg, var(--violet), var(--pink));box-shadow:0 14px 28px rgba(126,107,255,.28)}
+    .small-btn{padding:10px 14px;background:rgba(255,255,255,.06)}
+
+    .section{padding:22px 0}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:18px;flex-wrap:wrap}
+    .section-head h2{margin:0;font-size:2rem;letter-spacing:-.05em}
+    .section-head p{margin:6px 0 0;color:var(--muted);max-width:62ch;line-height:1.7}
+    .section-tools{display:flex;gap:10px;flex-wrap:wrap}
+
+    .feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .feature-card{padding:20px}
+    .feature-card span{display:grid;place-items:center;width:48px;height:48px;border-radius:16px;background:rgba(255,255,255,.08);font-size:1.25rem;margin-bottom:14px}
+    .feature-card h3{margin:0 0 8px;font-size:1.05rem}
+    .feature-card p{margin:0;color:var(--muted);line-height:1.7;font-size:.95rem}
+
+    .city-strip{display:flex;gap:12px;overflow:auto;padding-bottom:6px;scrollbar-width:none}
+    .city-strip::-webkit-scrollbar{display:none}
+    .city-card{min-width:210px;padding:18px;position:relative;overflow:hidden}
+    .city-card::before{content:"";position:absolute;inset:auto -40px -40px auto;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle, rgba(255,255,255,.14), transparent 70%)}
+    .city-card strong{display:block;font-size:1.15rem}
+    .city-card span{display:block;margin-top:8px;color:var(--muted)}
+
+    .events-wrap{display:grid;grid-template-columns:280px 1fr;gap:18px;align-items:start}
+    .filter-card{padding:20px;position:sticky;top:96px}
+    .filter-card h3{margin:0 0 14px;font-size:1.05rem}
+    .filter-group{display:grid;gap:10px}
+    .filter-group button{
+      text-align:left;padding:12px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.08);cursor:pointer;
+      background:rgba(255,255,255,.04);color:var(--text)
+    }
+    .filter-group button.active,.filter-group button:hover{background:linear-gradient(135deg, rgba(255,95,167,.22), rgba(126,107,255,.2));border-color:rgba(255,255,255,.16)}
+    .filter-note{margin-top:16px;padding:14px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);color:var(--muted);line-height:1.65;font-size:.92rem}
+    .events-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .event-card{overflow:hidden;display:flex;flex-direction:column}
+    .event-art{aspect-ratio: 16/11; position:relative; padding:16px; display:flex; align-items:flex-end; background:var(--card-art, linear-gradient(135deg,#3f1f65,#162244));}
+    .event-art::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.35));pointer-events:none}
+    .event-pill,.event-date{position:absolute;top:14px;z-index:2}
+    .event-pill{left:14px;padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.16);backdrop-filter:blur(8px);font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .event-date{right:14px;padding:9px 11px;border-radius:18px;background:rgba(13,9,30,.55);backdrop-filter:blur(8px);font-size:.84rem;font-weight:700;border:1px solid rgba(255,255,255,.12)}
+    .event-title-wrap{position:relative;z-index:2}
+    .event-title-wrap h3{margin:0;font-size:1.36rem;letter-spacing:-.04em}
+    .event-title-wrap p{margin:6px 0 0;color:#ede8ff}
+    .event-body{padding:18px;display:flex;flex-direction:column;gap:12px;flex:1}
+    .meta-line{display:flex;flex-wrap:wrap;gap:8px;color:var(--muted);font-size:.92rem}
+    .meta-chip{padding:8px 10px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07)}
+    .event-body p{margin:0;color:var(--muted);line-height:1.7;font-size:.95rem}
+    .event-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:4px}
+    .price{font-weight:900;font-size:1.03rem}
+    .status{font-size:.85rem;color:#f5d9e8}
+    .status.live{color:#a8ffd8}.status.soon{color:#ffe08f}.status.rsvp{color:#9edfff}
+    .event-foot a{padding:11px 14px;border-radius:14px;background:linear-gradient(135deg, rgba(255,95,167,.18), rgba(126,107,255,.18));border:1px solid rgba(255,255,255,.12);font-weight:800}
+
+    .roadmap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .roadmap-card{padding:22px}
+    .roadmap-card .step{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg, var(--pink), var(--violet));font-weight:900;margin-bottom:12px}
+    .roadmap-card h3{margin:0 0 8px;font-size:1.1rem}
+    .roadmap-card p{margin:0;color:var(--muted);line-height:1.75}
+
+    .footer-cta{padding:26px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+    .footer-cta h2{margin:0;font-size:1.8rem;letter-spacing:-.05em}
+    .footer-cta p{margin:8px 0 0;color:var(--muted);line-height:1.7;max-width:56ch}
+    footer{padding:14px 0 34px}
+    .footer-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:18px;color:var(--muted);font-size:.92rem}
+    .footer-links{display:flex;gap:10px;flex-wrap:wrap}
+
+
+    .overline{font-size:.73rem;font-weight:900;letter-spacing:.22em;color:#ffa8ca;margin-bottom:8px}
+    .poster-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+    .poster{display:block;min-width:0;border-radius:24px;overflow:hidden;background:#191433;border:1px solid var(--line);box-shadow:var(--shadow);transition:transform .2s}
+    .poster:hover{transform:translateY(-5px)}
+    .poster-art{min-height:360px;position:relative;isolation:isolate;padding:20px;display:flex;flex-direction:column;justify-content:end;overflow:hidden}
+    .poster-art::before{content:'';position:absolute;inset:-10%;z-index:-1;background:repeating-radial-gradient(circle at 70% 25%,rgba(255,255,255,.17) 0 2px, transparent 2px 24px);opacity:.35;transform:rotate(-15deg)}
+    .poster-a .poster-art{background:linear-gradient(145deg,#351c79,#7b298e 55%,#e84d8f)}
+    .poster-b .poster-art{background:linear-gradient(160deg,#07172e,#163761 45%,#10a9c4)}
+    .poster-c .poster-art{background:linear-gradient(165deg,#4c152c,#9f455a 60%,#eeb176)}
+    .poster-d .poster-art{background:linear-gradient(165deg,#203748,#52605e 52%,#b8bc77)}
+    .poster-symbol{position:absolute;top:14%;right:13%;font-size:6rem;opacity:.65;transform:rotate(-18deg);text-shadow:0 14px 25px rgba(0,0,0,.2)}
+    .poster-index{font-size:.72rem;font-weight:900;letter-spacing:.22em;margin-bottom:auto}
+    .poster-title{font-size:clamp(1.55rem,2.7vw,3rem);font-weight:1000;letter-spacing:-.075em;line-height:.91;text-wrap:balance;text-shadow:0 4px 20px rgba(0,0,0,.15)}
+    .poster-desc{font-size:.86rem;margin-top:15px;color:rgba(255,255,255,.9)}
+    .poster-bottom{display:flex;justify-content:space-between;gap:10px;padding:15px;font-size:.94rem;font-weight:800}
+    .ecosystem-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .ecosystem-card{display:flex;flex-direction:column;gap:12px;min-height:225px;padding:24px;border-radius:24px;border:1px solid var(--line-strong);background:linear-gradient(135deg,rgba(255,255,255,.085),rgba(255,255,255,.035))}
+    .ecosystem-card.featured{background:linear-gradient(130deg,rgba(255,95,167,.19),rgba(126,107,255,.18))}
+    .ecosystem-card span{font-size:.78rem;font-weight:900;letter-spacing:.17em;color:#ffd0e4}
+    .ecosystem-card h3{font-size:1.55rem;letter-spacing:-.05em;margin:0}
+    .ecosystem-card p{margin:0;color:var(--muted);line-height:1.7;flex:1}
+    .ecosystem-card b{font-size:.91rem}
+    .organiser-layout{display:grid;grid-template-columns:.9fr 1.1fr;align-items:start;gap:26px;padding:28px;border-radius:28px;border:1px solid var(--line);background:linear-gradient(140deg,rgba(255,95,167,.085),rgba(126,107,255,.075))}
+    .organiser-copy h2{font-size:clamp(2rem,4vw,3.2rem);letter-spacing:-.06em;line-height:1.05;margin:12px 0}
+    .organiser-copy p{color:var(--muted);line-height:1.8}.organiser-copy strong{color:var(--text)}
+    .organiser-points{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}.organiser-points span{padding:12px;border:1px solid var(--line);border-radius:14px;font-size:.89rem}
+    .organiser-form{display:grid;gap:15px;background:#130e2a;border:1px solid var(--line-strong);border-radius:24px;padding:24px}
+    .form-heading{display:flex;align-items:center;justify-content:space-between;gap:10px}.form-heading h3{margin:0;font-size:1.2rem}.form-heading span{color:var(--muted);font-size:.8rem}
+    .organiser-form label{display:grid;gap:7px;font-size:.9rem;font-weight:700;color:#efeaff}
+    .organiser-form input:not([type=checkbox]),.organiser-form textarea,.organiser-form select{display:block;width:100%;min-width:0;background:#241c44;border:1px solid rgba(255,255,255,.15);border-radius:13px;padding:13px;color:#fff;outline:none}
+    .organiser-form input:focus,.organiser-form textarea:focus,.organiser-form select:focus{border-color:#ff8bbd;box-shadow:0 0 0 3px rgba(255,95,167,.13)}
+    .organiser-form option{background:#241c44}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .organiser-form .consent{display:flex;align-items:flex-start;gap:10px;font-weight:500;line-height:1.55;color:var(--muted)}.consent input{margin-top:5px;accent-color:#ff5fa7}
+    .form-submit{cursor:pointer;background:linear-gradient(125deg,#ff5fa7,#796afa);border:0;color:#fff;font-weight:900;border-radius:15px;padding:15px}
+    .form-feedback{color:var(--muted);font-size:.82rem;line-height:1.6;margin:0}
+    .mobile-nav{display:none}
+    @media(max-width:1120px){.poster-grid{grid-template-columns:repeat(2,1fr)}.organiser-layout{grid-template-columns:1fr}}
+    @media(max-width:760px){.poster-grid,.ecosystem-grid,.form-grid,.organiser-points{grid-template-columns:1fr}.poster-art{min-height:280px}.poster-title{font-size:2.6rem}.organiser-layout{padding:14px}.organiser-form{padding:16px}.mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:60;justify-content:space-around;gap:3px;padding:9px 8px calc(9px + env(safe-area-inset-bottom));background:rgba(12,8,32,.94);backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,.13)}.mobile-nav a{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:.68rem;min-width:58px;color:#e9e0fa}.mobile-nav span{font-size:1.35rem}body{padding-bottom:74px}}
+
+    @media (max-width:1120px){
+      .hero-grid,.events-wrap{grid-template-columns:1fr}
+      .feature-grid{grid-template-columns:repeat(2,1fr)}
+      .events-grid,.roadmap-grid{grid-template-columns:repeat(2,1fr)}
+      .filter-card{position:relative;top:auto}
+      .search-panel{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:760px){
+      .shell{width:min(var(--max), calc(100% - 20px))}
+      .nav{align-items:flex-start}
+      .nav-links{display:none}
+      h1{font-size:2.75rem;max-width:none}
+      .hero-main,.hero-side,.feature-card,.roadmap-card,.footer-cta,.section-card{padding:20px}
+      .search-panel{grid-template-columns:1fr}
+      .hero-stats,.badge-stack,.events-grid,.roadmap-grid,.feature-grid{grid-template-columns:1fr}
+      .section-head h2{font-size:1.65rem}
+      .event-title-wrap h3{font-size:1.18rem}
+      .brand-copy strong{font-size:1.05rem}
+      .brand-copy span{font-size:.7rem}
+    }
+
+/* Firebase authentication and Discov Studio */
+.account-btn{border:1px solid rgba(255,255,255,.18);background:linear-gradient(120deg,#44296b,#a43b87);border-radius:999px;padding:12px 17px;color:white;cursor:pointer;font-weight:800}
+.auth-shade{position:fixed;inset:0;z-index:100;background:rgba(4,3,12,.78);display:none;align-items:center;justify-content:center;padding:15px;backdrop-filter:blur(10px)}
+.auth-shade.open{display:flex}.auth-box{width:min(540px,100%);max-height:88vh;overflow:auto;background:#181130;border:1px solid #675078;border-radius:24px;padding:25px;box-shadow:0 30px 90px #000a}
+.auth-box label,.studio-form label{display:grid;gap:7px;color:#e9dcff;font-size:.88rem;font-weight:700;margin-top:12px}
+.auth-box input,.studio-form input,.studio-form select,.studio-form textarea{background:#282041;border:1px solid #635475;border-radius:12px;padding:12px;color:white;width:100%}
+.auth-box button,.studio-form button,.studio-toolbar button{border:1px solid #705a83;background:#34224e;border-radius:12px;color:#fff;padding:11px 14px;cursor:pointer}
+.auth-box .primary,.studio-form .primary{background:linear-gradient(120deg,#ef5d9f,#8061ee);border:0;font-weight:800}
+.studio-shell{display:none;position:fixed;inset:0;z-index:90;overflow:auto;background:#0e0920;padding:28px 16px}
+.studio-shell.open{display:block}.studio-inner{max-width:1100px;margin:auto}.studio-toolbar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.studio-grid{display:grid;grid-template-columns:minmax(250px,440px) 1fr;gap:18px}.studio-form,.studio-list{background:#19122f;border:1px solid #514068;border-radius:20px;padding:20px}
+.studio-form textarea{min-height:100px}.studio-list article{border:1px solid #4d4161;border-radius:14px;padding:13px;margin:10px 0}.studio-list p{color:#c7bce2}
+#authMessage,#studioMessage{color:#f8d6e9;line-height:1.5;font-size:.9rem}
+@media(max-width:720px){.studio-grid{grid-template-columns:1fr}}
+  
+    /* App-style navigation: one page at a time, not a continuous landing page */
+    main > section[data-page]{display:none}
+    main > section[data-page].page-active{display:block;animation:pageIn .24s ease-out}
+    @keyframes pageIn{from{opacity:.45;transform:translateY(8px)}to{opacity:1;transform:none}}
+    .nav-links a.current,.mobile-nav a.current{background:linear-gradient(125deg,rgba(255,95,167,.23),rgba(126,107,255,.27));border-color:rgba(255,255,255,.25);color:white}
+    .event-art{overflow:hidden;isolation:isolate;min-height:210px}
+    .event-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1}
+    .event-art::after{z-index:0;background:linear-gradient(180deg,rgba(8,5,25,.12),rgba(8,5,25,.82))}
+    .poster-fallback{position:absolute;inset:0;display:grid;place-items:center;font-size:5.8rem;color:rgba(255,255,255,.14);transform:rotate(-13deg);z-index:-1}
+    .event-pill,.event-date,.event-title-wrap{z-index:2}
+    .empty-events{min-height:215px;justify-content:center;text-align:center}
+    #events .events-grid{min-height:180px}
+    @media(max-width:760px){.mobile-nav{grid-template-columns:repeat(4,1fr)}.hero{padding:20px 0 12px}}
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell nav">
+      <a class="brand" href="#top" aria-label="Discov home">
+        <div class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="discovGrad" x1="9" y1="8" x2="57" y2="58" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FFC76B"/>
+                <stop offset="0.45" stop-color="#FF5FA7"/>
+                <stop offset="1" stop-color="#7E6BFF"/>
+              </linearGradient>
+            </defs>
+            <path d="M12 18a7 7 0 0 1 7-7h4v6c0 2.2 1.8 4 4 4h10v22H27a4 4 0 0 0-4 4v6h-4a7 7 0 0 1-7-7V18Z" fill="url(#discovGrad)" opacity=".95"/>
+            <path d="M52 18a7 7 0 0 0-7-7h-4v6c0 2.2-1.8 4-4 4H27v22h10a4 4 0 0 1 4 4v6h4a7 7 0 0 0 7-7V18Z" fill="url(#discovGrad)"/>
+            <circle cx="34" cy="31" r="4.2" fill="#fff3d2"/>
+            <path d="M47.2 12.5l1.6 3.5 3.7 1.7-3.7 1.8-1.6 3.5-1.7-3.5-3.6-1.8 3.6-1.7 1.7-3.5Z" fill="#fff" opacity=".95"/>
+          </svg>
+        </div>
+        <div class="brand-copy">
+          <span>by FAYVI</span>
+          <strong>DISCOV</strong>
+          <small>Find your next experience.</small>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="#home" data-page-link="home">Home</a>
+        <a href="#explore" data-page-link="explore">Explore events</a>
+        <a href="#organisers" data-page-link="organisers">List an event</a>
+        <button type="button" id="accountDesktop" class="nav-cta" style="cursor:pointer;color:white;border:0">Sign in</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero page-active" data-page="home">
+      <div class="shell hero-grid">
+        <div class="hero-main">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> events • culture • experiences • by FAYVI</div>
+          <h1>Find what’s <span class="accent">worth going to.</span></h1>
+          <p>Concerts, nightlife, theatre, festivals, art and unforgettable experiences around Sri Lanka. Find your next plan, all in one place.</p>
+          <div class="search-panel section-card">
+            <input id="searchInput" type="text" placeholder="Search artists, events, venues or vibes…" />
+            <select id="citySelect" aria-label="Filter by city">
+              <option value="all">All cities</option>
+              <option value="Colombo">Colombo</option>
+              <option value="Negombo">Negombo</option>
+              <option value="Kandy">Kandy</option>
+              <option value="Galle">Galle</option>
+            </select>
+            <select id="typeSelect" aria-label="Filter by type">
+              <option value="all">All event types</option>
+              <option value="Concert">Concerts</option>
+              <option value="Party">Parties</option>
+              <option value="Theatre">Theatre</option>
+              <option value="Cinema">Cinema</option>
+              <option value="Exhibition">Exhibitions</option>
+              <option value="Wellness">Wellness</option>
+              <option value="Festival">Festivals</option>
+              <option value="Sports">Sports</option>
+            </select>
+            <button id="exploreButton" type="button">Explore now</button>
+          </div>
+          <div class="quick-tags" aria-label="Quick categories">
+            <button class="tag-btn active" data-type="all">All</button>
+            <button class="tag-btn" data-type="Concert">Concerts</button>
+            <button class="tag-btn" data-type="Party">Nightlife</button>
+            <button class="tag-btn" data-type="Theatre">Theatre</button>
+            <button class="tag-btn" data-type="Cinema">Cinema</button>
+            <button class="tag-btn" data-type="Exhibition">Exhibitions</button>
+            <button class="tag-btn" data-type="Festival">Festivals</button>
+            <button class="tag-btn" data-type="Sports">Sports</button>
+          </div>
+          <div class="hero-stats">
+            <div><strong>08</strong><span>ways to explore</span></div>
+            <div><strong>LK</strong><span>made for Sri Lanka</span></div>
+            <div><strong>✦</strong><span>powered by FAYVI</span></div>
+          </div>
+        </div>
+        <aside class="hero-side">
+          <div class="badge-stack">
+            <div class="logo-panel">
+              <div class="logo-mark">
+                <div class="ticket" aria-hidden="true">
+                  <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="discovCardGrad" x1="9" y1="8" x2="57" y2="58" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#FFC76B"/>
+                        <stop offset="0.45" stop-color="#FF5FA7"/>
+                        <stop offset="1" stop-color="#7E6BFF"/>
+                      </linearGradient>
+                    </defs>
+                    <path d="M12 18a7 7 0 0 1 7-7h4v6c0 2.2 1.8 4 4 4h10v22H27a4 4 0 0 0-4 4v6h-4a7 7 0 0 1-7-7V18Z" fill="url(#discovCardGrad)" opacity=".95"/>
+                    <path d="M52 18a7 7 0 0 0-7-7h-4v6c0 2.2-1.8 4-4 4H27v22h10a4 4 0 0 1 4 4v6h4a7 7 0 0 0 7-7V18Z" fill="url(#discovCardGrad)"/>
+                    <circle cx="34" cy="31" r="4.2" fill="#fff3d2"/>
+                    <path d="M47.2 12.5l1.6 3.5 3.7 1.7-3.7 1.8-1.6 3.5-1.7-3.5-3.6-1.8 3.6-1.7 1.7-3.5Z" fill="#fff" opacity=".95"/>
+                  </svg>
+                </div>
+                <b>DISCOV</b>
+                <small>by fayvi</small>
+              </div>
+            </div>
+            <div class="vibe-panel">
+              <h3>What Discov is about</h3>
+              <p style="margin:0;color:#f2eeff;line-height:1.7">Find your next favourite plan — from big ticketed nights to small cultural moments and experiences worth sharing.</p>
+              <div class="vibe-bubbles">
+                <span>Concerts</span>
+                <span>Parties</span>
+                <span>Theatre</span>
+                <span>Experiences</span>
+              </div>
+            </div>
+          </div>
+          <div class="mini-panel">
+            <h3>Why it works with FAYVI</h3>
+            <p>Find a favourite artist on FAYVI, discover their next performance through Discov, and plan the rest of your outing with Solace.</p>
+            <div class="cta-row">
+              <a class="solid-btn" href="#events">Explore events</a>
+              <a class="ghost-btn" href="#explore" data-page-link="explore">Explore events</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="collections" data-page="explore">
+      <div class="shell">
+        <div class="section-head"><div><div class="overline">DISCOV COLLECTIONS</div><h2>What are you in the mood for?</h2><p>Find events that match your mood.</p></div><a class="small-btn" href="#events">See all events ↗</a></div>
+        <div class="poster-grid">
+          <a class="poster poster-a" href="#events" data-poster-type="Concert"><div class="poster-art"><span class="poster-symbol">♫</span><span class="poster-index">01 / SOUND</span><div class="poster-title">LOUD<br>ENOUGH.</div><span class="poster-desc">Concerts • live sets • festivals</span></div><span class="poster-bottom">Follow the music <b>↗</b></span></a>
+          <a class="poster poster-b" href="#events" data-poster-type="Party"><div class="poster-art"><span class="poster-symbol">✧</span><span class="poster-index">02 / AFTER DARK</span><div class="poster-title">THE<br>NIGHT<br>IS YOUNG.</div><span class="poster-desc">DJ sets • rooftops • parties</span></div><span class="poster-bottom">Find the after-hours <b>↗</b></span></a>
+          <a class="poster poster-c" href="#events" data-poster-type="Theatre"><div class="poster-art"><span class="poster-symbol">✺</span><span class="poster-index">03 / ON STAGE</span><div class="poster-title">TAKE<br>YOUR<br>SEAT.</div><span class="poster-desc">Drama • comedy • performing arts</span></div><span class="poster-bottom">A little drama <b>↗</b></span></a>
+          <a class="poster poster-d" href="#events" data-poster-type="Exhibition"><div class="poster-art"><span class="poster-symbol">◌</span><span class="poster-index">04 / CULTURE</span><div class="poster-title">SOMETHING<br>DIFFERENT.</div><span class="poster-desc">Art • pop-ups • culture</span></div><span class="poster-bottom">Get curious <b>↗</b></span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cities" data-page="explore">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>Explore by city.</h2>
+            <p>Find experiences close to you.</p>
+          </div>
+          <div class="section-tools"><a class="small-btn" href="#events">Jump to events</a></div>
+        </div>
+        <div class="city-strip">
+          <article class="city-card"><strong>Colombo</strong><span>Concerts, nightlife, premium launches and large-scale events.</span></article>
+          <article class="city-card"><strong>Negombo</strong><span>Beach clubs, live music, hidden gems and sunset socials.</span></article>
+          <article class="city-card"><strong>Kandy</strong><span>Culture, theatre, university energy and performance spaces.</span></article>
+          <article class="city-card"><strong>Galle</strong><span>Art, travel events, boutique happenings and coastal vibes.</span></article>
+          <article class="city-card"><strong>Jaffna</strong><span>Community events, music moments and regional cultural growth.</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="events" data-page="explore">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2>On our radar.</h2>
+            <p>Discover upcoming experiences listed on Discov. Check event details and the official organiser before booking.</p>
+          </div>
+          <div class="section-tools">
+            <a class="small-btn" href="#organisers">List an event</a>
+            <button class="small-btn" id="showAllBtn" type="button">Reset filters</button>
+          </div>
+        </div>
+        <div class="events-wrap">
+          <aside class="filter-card hero-side">
+            <div>
+              <h3>Browse collections</h3>
+              <div class="filter-group" id="collectionFilters">
+                <button class="active" data-collection="all">Everything</button>
+                <button data-collection="Date Night">Date Night</button>
+                <button data-collection="This Weekend">This Weekend</button>
+                <button data-collection="Luxury">Luxury Picks</button>
+                <button data-collection="FAYVI Picks">FAYVI Picks</button>
+              </div>
+            </div>
+            <div class="filter-note">
+              Looking for something different? Explore ticketed events, exhibitions, food pop-ups, cultural programmes and RSVP experiences. Listings link to external sources; Discov does not sell tickets yet.
+            </div>
+          </aside>
+          <div class="events-grid" id="eventsGrid"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="ecosystem" data-page="home">
+      <div class="shell">
+        <div class="section-head"><div><div class="overline">THE FAYVI UNIVERSE</div><h2>One outing. More possibilities.</h2><p>Discov stands on its own — and feels more useful alongside the other experiences in the FAYVI universe.</p></div></div>
+        <div class="ecosystem-grid">
+          <a class="ecosystem-card" href="https://janiruofficial.github.io/FAYVI/" target="_blank" rel="noopener noreferrer"><span>✦ FAYVI</span><h3>Know the people.</h3><p>Get to know Sri Lankan artists, performers and entertainment personalities.</p><b>Explore FAYVI ↗</b></a>
+          <div class="ecosystem-card featured"><span>◈ DISCOV</span><h3>Find the moment.</h3><p>Concerts, culture, nightlife and all the reasons to leave the house.</p><b>You’re here ✨</b></div>
+          <a class="ecosystem-card" href="https://janiruofficial.github.io/solace/" target="_blank" rel="noopener noreferrer"><span>☾ SOLACE</span><h3>Find your place.</h3><p>Make the rest of the day yours with mood-based place discovery.</p><b>Open Solace ↗</b></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="organisers" data-page="organisers">
+      <div class="shell organiser-layout">
+        <div class="organiser-copy"><div class="overline">FOR PEOPLE WHO MAKE IT HAPPEN</div><h2>Have an event worth discovering?</h2><p>Discov wants to spotlight the organisers, venues, creators and communities bringing Sri Lanka together.</p><p>Fill in the details to prepare a structured event-listing request. Send your event for review. Sign in to submit online. If online submission is unavailable, you can save a request file for your records; downloaded files are not sent to Discov.</p><div class="organiser-points"><span>✓ Concerts & nightlife</span><span>✓ Theatre & festivals</span><span>✓ Exhibitions & pop-ups</span><span>✓ Free & ticketed experiences</span></div></div>
+        <form class="organiser-form" id="organiserForm">
+          <div class="form-heading"><h3>Prepare your event listing</h3><span>Event submission</span></div>
+          <div class="form-grid"><label>Your name / organisation<input name="organiser" required maxlength="120" placeholder="e.g. Studio Events" autocomplete="organization"></label><label>Contact email<input name="email" required type="email" maxlength="180" placeholder="you@example.com" autocomplete="email"></label></div>
+          <label>Event name<input name="title" required maxlength="150" placeholder="The name of your event"></label>
+          <div class="form-grid"><label>Event date<input name="date" type="date" required></label><label>Event category<select name="category" required><option value="">Choose category</option><option>Concert</option><option>Party</option><option>Theatre</option><option>Cinema</option><option>Exhibition</option><option>Festival</option><option>Sports</option><option>Wellness</option><option>Other experience</option></select></label></div>
+          <div class="form-grid"><label>City<input name="city" required maxlength="90" placeholder="Colombo, Kandy, Galle…"></label><label>Venue<input name="venue" maxlength="160" placeholder="Venue / location"></label></div>
+          <label>Official event / ticketing link<input name="url" type="url" placeholder="https://…"></label>
+          <label>Short event description<textarea name="description" rows="4" required maxlength="700" placeholder="Tell us what makes this event special…"></textarea></label>
+          <label class="consent"><input type="checkbox" name="authority" required><span>I confirm that I am authorised to provide these event details and that they are accurate to the best of my knowledge.</span></label>
+          <button type="submit" class="form-submit">Download listing request ↓</button><p class="form-feedback" id="formFeedback" role="status" aria-live="polite">No information is sent to a server from this form.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-bar">
+      <div>© <span id="year"></span> Discov by FAYVI — Find your next experience.</div>
+      <div class="footer-links">
+        <a href="#events">Events</a>
+        <a href="#cities">Cities</a>
+        <a href="#organisers" data-page-link="organisers">Organisers</a>
+      </div>
+    </div>
+  </footer>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation"><a href="#home" data-page-link="home"><span>⌂</span>Home</a><a href="#explore" data-page-link="explore"><span>✧</span>Explore</a><a href="#organisers" data-page-link="organisers"><span>＋</span>List event</a><a href="#account" id="accountMobile"><span>♙</span>Account</a></nav>
+
+
+  <div class="auth-shade" id="authShade" role="dialog" aria-modal="true" aria-label="Discov account">
+    <div class="auth-box">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><h2 style="margin:0">Your Discov account ✦</h2><button type="button" id="closeAuth">✕</button></div>
+      <p style="color:#c9bfe8">Sign in with Google or email/password. Only authorised administrators can use Discov Studio.</p>
+      <button type="button" class="primary" id="googleLogin" style="width:100%">Continue with Google</button>
+      <form id="emailLoginForm">
+        <label>Email<input name="email" type="email" required autocomplete="email"></label>
+        <label>Password<input name="password" type="password" required autocomplete="current-password" minlength="6"></label>
+        <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:14px"><button type="submit" class="primary">Sign in with email</button><button type="button" id="emailRegister">Create account</button><button type="button" id="resetPassword">Reset password</button></div>
+      </form>
+      <div id="currentUserPanel" hidden><p id="currentUserLabel"></p><button type="button" id="openStudio">Open Studio</button> <button type="button" id="logoutBtn">Sign out</button></div>
+      <p id="authMessage" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+  <div class="studio-shell" id="studioShell" aria-label="Discov Studio">
+    <div class="studio-inner">
+      <div class="studio-toolbar"><div><div class="overline">BY FAYVI · PRIVATE</div><h1 style="font-size:2.3rem;margin:5px 0">Discov Studio</h1></div><button type="button" id="closeStudio">Close Studio ✕</button></div>
+      <p id="studioMessage" role="status">Private content management. Events stay hidden until you publish them.</p>
+      <div class="studio-grid">
+        <form id="studioEventForm" class="studio-form">
+          <h2 style="margin-top:0">Add / edit event</h2>
+          <input type="hidden" name="eventId" id="studioEventId">
+          <label>Event name<input name="title" required maxlength="140"></label>
+          <label>Category<select name="type" required><option>Concert</option><option>Party</option><option>Theatre</option><option>Cinema</option><option>Exhibition</option><option>Festival</option><option>Sports</option><option>Wellness</option></select></label>
+          <label>City<input name="city" required maxlength="80" placeholder="Colombo"></label>
+          <label>Venue<input name="venue" required maxlength="160"></label>
+          <label>Event date<input name="eventDate" type="date" required></label>
+          <label>Official event/ticket URL<input name="url" type="url" placeholder="https://..."></label>
+          <label>Price label<input name="price" maxlength="70" placeholder="See ticket provider"></label>
+          <label>Description<textarea name="desc" required maxlength="1500"></textarea></label>
+          <label>Event poster image URL<input name="imageUrl" id="posterImageInput" type="url" placeholder="https://example.com/poster.jpg" inputmode="url"><small style="display:block;margin-top:7px;color:#c8c1e9">Use a publicly accessible HTTPS poster image URL. A designed placeholder appears if no image is provided.</small><img id="posterImagePreview" alt="Poster preview" hidden style="width:180px;max-width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:15px;margin-top:10px" /></label>
+          <label style="display:flex;align-items:center;gap:9px"><input name="published" type="checkbox" style="width:auto"> Published — visible publicly</label>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:15px"><button type="submit" class="primary">Save event</button><button type="button" id="clearStudioForm">New event</button></div>
+        </form>
+        <div class="studio-list"><h2 style="margin-top:0">Managed events</h2><div id="studioEventsList">Sign in as admin to load events.</div><h2>Organiser submissions</h2><p>New submissions from signed-in users appear here for review. They are not published automatically.</p><div id="studioSubmissionsList">No submissions loaded.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // VERIFIED SOURCE-LISTED EVENTS. Review before publication, do not invent ticket prices.
+    // All outbound ticket links deliberately point to the public provider homepage because
+    // individual booking URL paths were not independently verified.
+    let EVENTS = [];
+
+    const state = {text:'', city:'all', type:'all', collection:'all'};
+    const grid = document.getElementById('eventsGrid');
+    const searchInput = document.getElementById('searchInput');
+    const citySelect = document.getElementById('citySelect');
+    const typeSelect = document.getElementById('typeSelect');
+    const exploreButton = document.getElementById('exploreButton');
+    const showAllBtn = document.getElementById('showAllBtn');
+
+    function matches(event){
+      const haystack = `${safe(event.title)} ${safe(event.type)} ${safe(event.city)} ${safe(event.venue)} ${safe(event.desc)} ${safe(event.tag)}`.toLowerCase();
+      const textOk = !state.text || haystack.includes(state.text.toLowerCase());
+      const cityOk = state.city === 'all' || event.city === state.city;
+      const typeOk = state.type === 'all' || event.type === state.type;
+      const collectionOk = state.collection === 'all' || event.collection.includes(state.collection);
+      return textOk && cityOk && typeOk && collectionOk;
+    }
+
+    function safe(value){return String(value ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+    function safeLink(value){try{let u=new URL(value);return (u.protocol==='https:' || u.protocol==='http:')?u.href:'#events'}catch{return '#events'}}
+    function render(){
+      const list = EVENTS.filter(matches);
+      grid.innerHTML = list.map(event => `
+        <article class="event-card">
+          <div class="event-art" style="--card-art:${safe(event.art||'linear-gradient(130deg,#42215c,#182951)')}">
+            ${/^https:\/\//i.test(event.imageUrl||'') ? `<img class="event-poster" src="${safe(event.imageUrl)}" alt="Poster for ${safe(event.title)}" loading="lazy" onerror="this.remove()">` : `<div class="poster-fallback" aria-hidden="true">✦</div>`}
+            <div class="event-pill">${safe(event.tag)}</div>
+            <div class="event-date">${safe(event.date)}</div>
+            <div class="event-title-wrap">
+              <h3>${safe(event.title)}</h3>
+              <p>${safe(event.city)} • ${safe(event.venue)}</p>
+            </div>
+          </div>
+          <div class="event-body">
+            <div class="meta-line">
+              <span class="meta-chip">${safe(event.type)}</span>
+              <span class="meta-chip">${safe(event.city)}</span>
+            </div>
+            <p>${safe(event.desc)}</p>
+            <div class="event-foot">
+              <div>
+                <div class="price">${safe(event.price)}</div>
+                <div class="status ${event.statusClass}">${safe(event.status)}</div>
+              </div>
+              <a href="${safe(safeLink(event.url))}" target="_blank" rel="noopener noreferrer" aria-label="Check official provider for ${safe(event.title)}">Check provider ↗</a>
+            </div>
+          </div>
+        </article>
+      `).join('');
+      if(!list.length){
+        grid.innerHTML = `<article class="event-card empty-events" style="grid-column:1/-1"><div class="event-body"><h3 style="margin:0">${EVENTS.length ? "Nothing matched your search" : "Something good is coming ✦"}</h3><p>${EVENTS.length ? "Try a different category, city or keyword." : "We’re curating upcoming events. Check back soon or explore the collections above."}</p></div></article>`;
+      }
+    }
+
+    function syncTagButtons(typeValue){
+      document.querySelectorAll('.tag-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.type === typeValue);
+      });
+    }
+
+    document.querySelectorAll('.tag-btn').forEach(btn => btn.addEventListener('click', () => {
+      state.type = btn.dataset.type;
+      typeSelect.value = state.type;
+      syncTagButtons(state.type);
+      render();
+      window.discovGoPage?.('explore','events');
+    }));
+
+    document.querySelectorAll('#collectionFilters button').forEach(btn => btn.addEventListener('click', () => {
+      document.querySelectorAll('#collectionFilters button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.collection = btn.dataset.collection;
+      render();
+    }));
+
+    searchInput.addEventListener('input', e => { state.text = e.target.value.trim(); render(); });
+    citySelect.addEventListener('change', e => { state.city = e.target.value; render(); });
+    typeSelect.addEventListener('change', e => { state.type = e.target.value; syncTagButtons(state.type); render(); });
+    exploreButton.addEventListener('click', () => { window.discovGoPage?.('explore','events'); render(); });
+    showAllBtn.addEventListener('click', () => {
+      state.text=''; state.city='all'; state.type='all'; state.collection='all';
+      searchInput.value=''; citySelect.value='all'; typeSelect.value='all';
+      syncTagButtons('all');
+      document.querySelectorAll('#collectionFilters button').forEach((b,i)=> b.classList.toggle('active', i===0));
+      render();
+    });
+
+    // Poster collections provide quick filters, not fictional event claims.
+    document.querySelectorAll('[data-poster-type]').forEach(poster => poster.addEventListener('click', () => {
+      state.text=''; searchInput.value='';
+      state.city='all'; citySelect.value='all';
+      state.type=poster.dataset.posterType; typeSelect.value=state.type;
+      state.collection='all';
+      document.querySelectorAll('#collectionFilters button').forEach((b,i)=> b.classList.toggle('active',i===0));
+      syncTagButtons(state.type);render();
+    }));
+
+    // Export a local file. No server connection or publication is implied.
+    const organiserForm=document.getElementById('organiserForm');
+    organiserForm.addEventListener('submit', async e=>{
+      e.preventDefault();
+      if(!organiserForm.reportValidity()) return;
+      const fields=Object.fromEntries(new FormData(organiserForm).entries());
+      const content=[
+        'DISCOV BY FAYVI — EVENT LISTING REQUEST',
+        'Prepared: '+new Date().toISOString(),
+        'Organiser: '+fields.organiser,'Email: '+fields.email,
+        'Event: '+fields.title,'Date: '+fields.date,'Category: '+fields.category,
+        'City: '+fields.city,'Venue: '+(fields.venue||'Not provided'),
+        'Official URL: '+(fields.url||'Not provided'),
+        'Description: '+fields.description,
+        'Authorisation confirmed: Yes',
+        '', 'NOTICE: This file is downloaded only. It has not been sent to or reviewed by Discov.'
+      ].join('\n');
+      if(window.discovSubmitEvent && window.discovCurrentUser){
+        try{await window.discovSubmitEvent(fields);document.getElementById('formFeedback').textContent='Submission received for review. This is not a confirmed listing.';organiserForm.reset();return}
+        catch(err){document.getElementById('formFeedback').textContent='Online submission unavailable: '+err.message+'. A local request file will be downloaded instead.'}
+      }
+      const blob=new Blob([content],{type:'text/plain;charset=utf-8'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url;a.download='discov-event-request.txt';document.body.appendChild(a);a.click();a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),1000);
+      document.getElementById('formFeedback').textContent='Your event request file has been prepared. Keep it safe; no details have been sent or published.';
+    });
+
+    window.discovSetEvents = events => { EVENTS = events; render(); };
+    document.getElementById('year').textContent = new Date().getFullYear();
+    render();
+  </script>
+
+  <script type="module">
+    import {initializeApp} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js';
+    import {getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut, onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
+    import {getFirestore, doc, getDoc, collection, getDocs, query, where, addDoc, setDoc, updateDoc, deleteDoc, serverTimestamp} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js';
+    const firebaseConfig={apiKey:'AIzaSyAD0ZYvdi9qSD1PKH5VUKD3trCpyqIwh-I',authDomain:'discov-194f4.firebaseapp.com',projectId:'discov-194f4',storageBucket:'discov-194f4.firebasestorage.app',messagingSenderId:'1011271359487',appId:'1:1011271359487:web:43f028fd0cc48d28fc65ca'};
+    const app=initializeApp(firebaseConfig), auth=getAuth(app), db=getFirestore(app);
+    const $=id=>document.getElementById(id);
+    let me=null, isAdmin=false, managedEvents=[];
+    const msg=(m)=>{$('authMessage').textContent=m};
+    const studioMsg=(m)=>{$('studioMessage').textContent=m};
+    function showAuth(){$('authShade').classList.add('open')}
+    $('accountDesktop')?.addEventListener('click',showAuth);
+    $('accountMobile')?.addEventListener('click',e=>{e.preventDefault();showAuth()});
+    $('closeAuth').addEventListener('click',()=>$('authShade').classList.remove('open'));
+    $('closeStudio').addEventListener('click',()=>$('studioShell').classList.remove('open'));
+    $('authShade').addEventListener('click',e=>{if(e.target===$('authShade'))$('authShade').classList.remove('open')});
+    $('googleLogin').addEventListener('click',async()=>{try{await signInWithPopup(auth,new GoogleAuthProvider());msg('Signed in.')}catch(e){if(e.code==='auth/popup-blocked'){msg('Popup was blocked. Allow popups for this site and try again.')}else msg('Google sign-in failed: '+e.message)}});
+    $('emailLoginForm').addEventListener('submit',async e=>{e.preventDefault();let f=new FormData(e.target);try{await signInWithEmailAndPassword(auth,f.get('email'),f.get('password'));msg('Signed in.')}catch(e){msg('Email sign-in failed: '+e.message)}});
+    $('emailRegister').addEventListener('click',async()=>{let f=new FormData($('emailLoginForm'));if(!f.get('email')||!f.get('password')){msg('Enter an email and password first.');return}try{await createUserWithEmailAndPassword(auth,f.get('email'),f.get('password'));msg('Account created. Admin rights are not automatic.')}catch(e){msg('Registration failed: '+e.message)}});
+    $('resetPassword').addEventListener('click',async()=>{let email=new FormData($('emailLoginForm')).get('email');if(!email){msg('Enter your email address first.');return}try{await sendPasswordResetEmail(auth,email);msg('If an account exists, a reset email may be sent.')}catch(e){msg('Password reset failed: '+e.message)}});
+    $('logoutBtn').addEventListener('click',async()=>{await signOut(auth);$('studioShell').classList.remove('open');msg('Signed out.')});
+    async function fetchAdmin(){if(!me)return false;try{let snap=await getDoc(doc(db,'admins',me.uid));return snap.exists()&&snap.data().active===true}catch(e){msg('Could not check admin permissions: '+e.message);return false}}
+    onAuthStateChanged(auth,async user=>{
+      me=user;window.discovCurrentUser=user;isAdmin=false;
+      $('currentUserPanel').hidden=!user;
+      $('emailLoginForm').hidden=!!user;
+      $('googleLogin').hidden=!!user;
+      if($('accountDesktop')) $('accountDesktop').textContent=user?'My Discov':'Sign in';
+      if(!user){$('openStudio').hidden=true;return}
+      $('currentUserLabel').textContent=(user.email||'Signed-in user')+' · UID '+user.uid;
+      isAdmin=await fetchAdmin();$('openStudio').hidden=!isAdmin;
+      msg(isAdmin?'Admin access confirmed. Open Discov Studio.':'Signed in. You can submit event requests; Studio requires admin authorisation.');
+    });
+    $('openStudio').addEventListener('click',async()=>{if(!me||!isAdmin)return;$('authShade').classList.remove('open');$('studioShell').classList.add('open');await loadAdmin()});
+    const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const safeURL=s=>{try{const u=new URL(s);return ['https:','http:'].includes(u.protocol)?u.href:''}catch{return ''}};
+    async function loadPublic(){
+      try{
+        const snap=await getDocs(query(collection(db,'events'),where('published','==',true)));
+        const events=snap.docs.map(d=>({id:d.id,...d.data()})).filter(e=>e.title&&e.eventDate).map(e=>({
+          ...e,date:e.eventDate,tag:e.type?.toUpperCase()||'EVENT',collection:Array.isArray(e.collection)?e.collection:['FAYVI Picks'],
+          art:'linear-gradient(135deg,#42215c,#182951)',status:'Organiser listing',statusClass:'rsvp',price:e.price||'See organiser',url:safeURL(e.url)||'#events'
+        }));
+        window.discovSetEvents(events);
+      }catch(e){console.warn('Discov events unavailable',e)}
+    }
+    async function loadAdmin(){
+      if(!me||!isAdmin)return;
+      try{
+        const snap=await getDocs(collection(db,'events'));managedEvents=snap.docs.map(d=>({id:d.id,...d.data()}));
+        const target=$('studioEventsList');target.replaceChildren();
+        if(!managedEvents.length)target.textContent='No Firestore events yet. Add your first event on the left.';
+        for(const ev of managedEvents){
+          const wrap=document.createElement('article'); const h=document.createElement('strong');h.textContent=ev.title||'Untitled';wrap.append(h);
+          const detail=document.createElement('p');detail.textContent=(ev.eventDate||'No date')+' • '+(ev.city||'')+' • '+(ev.published?'Published':'Draft');wrap.append(detail);
+          const edit=document.createElement('button');edit.type='button';edit.textContent='Edit';edit.addEventListener('click',()=>editEvent(ev));wrap.append(edit);
+          const del=document.createElement('button');del.type='button';del.textContent='Delete';del.style.marginLeft='8px';del.addEventListener('click',async()=>{if(!confirm('Delete this event permanently?'))return;await deleteDoc(doc(db,'events',ev.id));await loadAdmin();await loadPublic()});wrap.append(del);target.append(wrap);
+        }
+        const subs=await getDocs(collection(db,'submissions'));const subTarget=$('studioSubmissionsList');subTarget.replaceChildren();
+        if(subs.empty)subTarget.textContent='No submissions yet.';
+        for(const d of subs.docs){const v=d.data(),div=document.createElement('article');div.textContent=(v.title||'Untitled')+' — '+(v.organiser||'')+' — '+(v.email||'')+' — '+(v.status||'pending');subTarget.append(div)}
+      }catch(e){studioMsg('Loading failed: '+e.message)}
+    }
+    function editEvent(ev){
+      const f=$('studioEventForm');$('studioEventId').value=ev.id;
+      for(const k of ['title','type','city','venue','eventDate','url','price','desc','imageUrl'])if(f.elements[k])f.elements[k].value=ev[k]||'';
+      f.elements.published.checked=!!ev.published;updatePosterPreview();f.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+    $('clearStudioForm').addEventListener('click',()=>{$('studioEventForm').reset();$('studioEventId').value='';updatePosterPreview()});
+    function updatePosterPreview(){const v=$('posterImageInput').value.trim(),img=$('posterImagePreview');if(/^https:\/\//i.test(v)){img.src=v;img.hidden=false}else{img.removeAttribute('src');img.hidden=true}}
+    $('posterImageInput').addEventListener('input',updatePosterPreview);$('posterImagePreview').addEventListener('error',()=>{$('posterImagePreview').hidden=true});
+    $('studioEventForm').addEventListener('submit',async e=>{
+      e.preventDefault();if(!me||!isAdmin)return;
+      const f=new FormData(e.target),id=f.get('eventId');
+      const obj={title:String(f.get('title')||'').trim(),type:f.get('type'),city:String(f.get('city')||'').trim(),venue:String(f.get('venue')||'').trim(),eventDate:f.get('eventDate'),url:safeURL(f.get('url')),price:String(f.get('price')||'See organiser').trim(),desc:String(f.get('desc')||'').trim(),imageUrl:safeURL(f.get('imageUrl')),published:f.get('published')==='on',updatedAt:serverTimestamp()};
+      if(!obj.title||!obj.eventDate||!obj.city){studioMsg('Complete required fields.');return}
+      try{if(id)await updateDoc(doc(db,'events',id),obj);else await addDoc(collection(db,'events'),{...obj,createdAt:serverTimestamp()});studioMsg('Event saved successfully.');$('clearStudioForm').click();await loadAdmin();await loadPublic()}
+      catch(err){studioMsg('Save failed: '+err.message)}
+    });
+    window.discovSubmitEvent=async fields=>{
+      if(!auth.currentUser)throw new Error('Please sign in first, using the Account button');
+      const trimmed={organiser:String(fields.organiser||'').slice(0,120),email:String(fields.email||'').slice(0,180),title:String(fields.title||'').slice(0,140),date:String(fields.date||'').slice(0,40),category:String(fields.category||'').slice(0,60),city:String(fields.city||'').slice(0,80),venue:String(fields.venue||'').slice(0,160),url:safeURL(fields.url),description:String(fields.description||'').slice(0,1500),status:'pending',ownerUid:auth.currentUser.uid,createdAt:serverTimestamp()};
+      if(!trimmed.title||!trimmed.email||!trimmed.organiser)throw new Error('Missing required details');
+      await addDoc(collection(db,'submissions'),trimmed);
+    };
+    loadPublic();
+    getRedirectResult(auth).catch(e=>console.warn('Firebase redirect result',e));
+  </script>
+
+  <script>
+    (function(){
+      const pageForHash=h=>({home:'home',top:'home',ecosystem:'home',explore:'explore',collections:'explore',cities:'explore',events:'explore',organisers:'organisers'})[h]||'home';
+      function showPage(){
+        const hash=decodeURIComponent(location.hash.slice(1));
+        const page=pageForHash(hash);
+        document.querySelectorAll('main > section[data-page]').forEach(section=>section.classList.toggle('page-active',section.dataset.page===page));
+        document.querySelectorAll('[data-page-link]').forEach(link=>{const current=link.dataset.pageLink===page;link.classList.toggle('current',current);if(current)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current')});
+        if(hash==='events'||hash==='cities'||hash==='collections'){requestAnimationFrame(()=>document.getElementById(hash)?.scrollIntoView({block:'start'}));}
+        else window.scrollTo({top:0,behavior:'instant'});
+      }
+      window.addEventListener('hashchange',showPage);
+      window.addEventListener('DOMContentLoaded',showPage);
+      window.discovGoPage=(page,anchor)=>{const target=anchor||page;if(location.hash==='#'+target){showPage()}else location.hash=target};
+      showPage();
+    })();
+  </script>
+</body>
+</html>
